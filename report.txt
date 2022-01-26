@@ -1,0 +1,32 @@
+Overview: The purpose of this analysis was to see how well a Neural Network could predict whether an applicant would be funded by Alphabhet Soup.
+Data from 34,000 organizations was used.
+
+Processing: Preprocessing began by dropping useless columns and filtering out application and classification types that were "too unique" meaning
+they didn't occur enough times. This was done to lessen fluctuations in the dataset. Data was then encode using get_dummies and target/feature data
+was split. Next the data was split using train_test_split and scaled using standard scaler. The target is "IS_SUCCESSFUL" and the features included 
+all columns except the former and the dropped columns
+
+Compiling: The first nn model was run using 3 layers because I believe thats the standard starting point. I started with relu for my hidden layers 
+and sigmoid as my activation. So far in this class I've found that the relu and sigmoid combo generally performed the best. I can't explain why. 
+The accuracy was .726 so not great
+
+
+Optimization: I began optimization by filtering on a smaller number of unique columns to hopefully lessen fluctuation in the data. This increased 
+performance to .7358 accuracy. I then tried to add another layer, but the accuracy remained the same. Finally, I tried to user the keras Hyperband tuner
+to figure out the best model for me. The best hyper parameters were:
+{'activation': 'relu',
+ 'first_units': 53,
+ 'num_layers': 2,
+ 'units_0': 31,
+ 'units_1': 51,
+ 'units_2': 36,
+ 'units_3': 26,
+ 'units_4': 31,
+ 'units_5': 36,
+ 'tuner/epochs': 7,
+ 'tuner/initial_epoch': 0,
+ 'tuner/bracket': 1,
+ 'tuner/round': 0}
+
+Unfortunately the accuracy was only .7308, so not better than the the first optimization. At least it was better than the orginal.
+
